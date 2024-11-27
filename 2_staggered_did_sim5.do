@@ -3,34 +3,29 @@
    ssc install ftools
    */
 
-*************************************************************************************
-*Wooldridge(2021)の手法でStaggered な状況を分析してみよう
-*パネルデータを作成する
-*idは1から3000
-*サンプル期間は30年
-*グループは3つあり、1000ごとにidで区分される
-*グループ1は8年目、グループ2は16年目、グループ３は24年目に処置を受ける
-*処置効果はグループごとに異なる
-*処置効果は時間がたつにつれ増加する
-*ssc install reghdfe
-*ssc install ftools
+**************************************************************************************************************************
+** Simulation: Analyze a staggered situation using the method from Wooldridge (2021) and Sun and Abraham (2021)
+** Create panel data
+** ID ranges from 1 to 3000
+** There are 30 periods in the sample
+** There are 3 groups in the sample
+** Group 1 receives treatment in year 8, Group 2 in year 16, and Group 3 in year 24
+** The treatment effect varies by group
+** The treatment effect increases over time
+**************************************************************************************************************************
 
-* Simulation: Analyze a staggered situation using the method from Wooldridge (2021)
-* Create panel data
-* id ranges from 1 to 3000
-* The sample period is 30 years
-* There are 3 groups, divided by id in increments of 1000
-* Group 1 receives treatment in year 8, Group 2 in year 16, and Group 3 in year 24
-* The treatment effect varies by group
-* The treatment effect increases over time
-* ssc install reghdfe
-* ssc install ftools
+**************************************************************************************************************************
+** Data Creation
+**************************************************************************************************************************
 
-*************************************************************************************
-
+* Clear the data
 clear
+
+* Set the number of observations
 set obs 90000
 
+* Create the balanced panel data
+* 3000 units and 30 periods
 gen id = _n
 gen N = _n
 gen year = 1
@@ -43,20 +38,26 @@ forvalues t = 3000(3000)87000{
 	replace year = year + 1 if N > `t'
 }
 
+* Construct three dummy variables where each takes the value of 1 for a specific group
 gen g1 = (id <= 1000)
 gen g2 = (id > 1000 & id <= 2000)
 gen g3 = (id > 2000 & id <= 3000)
 
+* Create a variable that assigns numeric values to each group
 gen group = 0
 replace group = 1 if g1 == 1
 replace group = 2 if g2 == 1
 replace group = 3 if g3 == 1
 
+* Create a treatment dummy variable
+* Each group receives the treatment at a different timing
 gen D = 0
 replace D = 1 if year >= 8 & g1 == 1
 replace D = 1 if year >= 16 & g2 == 1
 replace D = 1 if year >= 24 & g3 == 1
 
+* Create the outcome variable 
+* Set heterogeneous and dynamic effects 
 gen Y = rnormal(3, 0.5^2)
 replace Y = Y + rnormal(10*(year - 7), 2^2)*D if g1 == 1
 replace Y = Y + rnormal(5*(year - 15), 2^2)*D if g2 == 1
