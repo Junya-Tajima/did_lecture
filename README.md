@@ -22,6 +22,7 @@ You need these packages to run do-files:
 
 - `reghdfe`
 - `ftools`
+- `ppmlhdfe`
 - `event_plot`
 - `addplot`
 - `drdid`
@@ -38,6 +39,7 @@ You can install these packages with the following command:
 *Install packages
 ssc install reghfe
 ssc install ftools
+ssc install ppmlhdfe
 ssc install event_plot
 ssc install addplot
 ssc install drdid
