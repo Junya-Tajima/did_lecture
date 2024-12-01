@@ -16,7 +16,7 @@
 ** Conventional event study DID set one period before the treatment as the baseline point for all estimates
 ** Callaway and Sant'Anna Estimator (2021) uses one period before the target year as the baseline point for the calculation of pre-treatment estimates 
 ** Because of the above difference, the two mwthods might have different results
-** To make the results from CS estimator comparable to the conventional event study, we need to add the long2 option when using the csdid command
+** To make the results from CS estimator comparable to the conventional event study, we need to add the "long2" option when using the csdid command
 ** We first conduct the conventional event study analysis using TWFE estimator
 ** We next conduct the CS event study analysis to see the difference of the results
 ** We finally add long2 option to make the results of CSDID cmparable to TWFEDD
@@ -105,7 +105,7 @@ graph combine g1 g2, scale(0.8)
 
 **********************************************************************************************************************************************************************
 ** Adding "long2" to make CS Event-Study result comparable to TWFEDD
-********************************************************************************************************************************************************************
+**********************************************************************************************************************************************************************
 * Conduct CSDID estimation
 * Estore the event study results from CSDID
 * Add the long2 option to make CS results comparable to the results of TWFEDD

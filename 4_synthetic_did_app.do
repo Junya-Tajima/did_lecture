@@ -120,7 +120,7 @@ sdid loggdppc country year D, vce(placebo) seed(222) reps(200) method(did) g1on 
 ********************************************************************************************************************
 *** Placebo test 
 ********************************************************************************************************************
-*Restore the processed data
+* Restore the processed data
 use "processed.dta", clear
 
 * Drop the data from the post-treatment period
@@ -202,7 +202,7 @@ keep time b se citop cibottom
 * Re-arrange the data in period order
 sort time
 
-*P lot the results of event study
+* Plot the results of event study
 twoway(rarea citop cibottom time, lwidth(thick) mcolor(gray%0) lcolor(gray%0) fcolor(gray%25))(sc b time, color(stc2) ///  
       msize(small) msymbol(circle)), xtitle("Event Time") xline(33) yline(0, lcolor(black)) ytitle("Estimated Effects") ///
       legend(order(4)) xlabel(, nogrid) ylabel(, nogrid) title("Event Study Plot")

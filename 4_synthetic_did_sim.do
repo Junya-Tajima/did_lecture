@@ -2,7 +2,7 @@
    ssc install sdid
    */
 
-*******************************************************************************************************************************
+**********************************************************************************************************************************************************
 ** Simulation 1 : Assess the prediction accuracy of three estimation methods 
 ** Use prefectural data from 1975 to 2007 obtained from e-Stat.
 ** The outcome variable is the logarithmic transformation of the number of marriages.
@@ -10,7 +10,7 @@
 ** The post-treatment period starts from a randomly selected year between 1976 and 2007
 ** Perform SDID, SC, and DID, and calculate and store the estimated ATT for each method
 ** Repeat the above process 1000 times and compute the RMSE
-*******************************************************************************************************************************
+**********************************************************************************************************************************************************
 * Download the data
 use "marriage.dta", clear
 
@@ -117,10 +117,8 @@ keep if count == 1
 ** Keep RMSEs from the three estimation methods and drop the rest
 keep SDID_RMSE SC_RMSE DID_RMSE
 
-
-
-*******************************************************************************************************************************
-** Simulation 2 : Assess the prediction accuracy of three estimation methods while considering the influence of fixed effects on treatment assignment and start time 
+**********************************************************************************************************************************************************
+** Simulation 2 : Assess the prediction accuracy of three estimation methods while considering the influence of fixed effects on treatment assignment
 **1 Use prefectural data from 1975 to 2007 obtained from e-Stat
 **2 The outcome variable is the logarithmic transformation of the number of marriages
 **3 Estimate prefecture and year fixed effects using regression 
@@ -128,7 +126,7 @@ keep SDID_RMSE SC_RMSE DID_RMSE
 **5 The treatment start year is selected from one of the three years with the smallest year fixed effects
 **6 Perform SDID, SC, and DID, and calculate and store the estimated ATT for each method
 **7 Repeat the above process 1000 times and compute the RMSE
-*******************************************************************************************************************************
+**********************************************************************************************************************************************************
 
 *** Create an empty vector for storing 1000 estimated values
 matrix define SDID_DIFFERENCE_SQUARED = J(1000, 1, .)

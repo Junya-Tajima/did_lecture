@@ -13,7 +13,7 @@
 ** Treatment begins at 6th period
 ** Outcome (Y) is non-negative
 ** We first conduct standard DID estimation using TWFE estimator
-** We nest conduct poisson DID estimation
+** We next conduct poisson DID estimation
 ***********************************************************************************************
 
 ***********************************************************************************************
@@ -77,7 +77,7 @@ ppmlhdfe Y D, abs(id time) vce(cl id)
 ** Event Study DID Estimation
 ***********************************************************************************************
 * Event Study Plot (Linear DID)
-use "CountData.dta", clear
+use "poisson.dta", clear
 reghdfe Y treat##ib5.time, abs(id time) vce(cl id)
 
 gen coef = .
@@ -99,8 +99,8 @@ twoway(rarea citop cibottom time, mcolor(gray%0) lcolor(gray%0) fcolor(gray%25))
       (sc coef time, color(stc1) msize(large) msymbol(diamond)), xtitle("Event Time") xline(5) yline(0, lcolor(black)) ///
 	  ytitle("Estimated Effects") legend(order(4)) name(q1, replace) 
 
-*Event Study Plot (Poisson DID)
-use "CountData.dta", clear
+* Event Study Plot (Poisson DID)
+use "poisson.dta", clear
 ppmlhdfe Y treat##ib5.time, abs(id time) vce(cl id)
 
 
@@ -137,7 +137,10 @@ graph combine q1 q2, scale(0.8)
 ** We next conduct DID estimation using log-transformed y
 ** Confirm whetehr Two specifications create the same result
 ***********************************************************************************************
-*** Create the data
+
+***********************************************************************************************
+** Data Creation
+***********************************************************************************************
 * Clear the data
 clear
 
