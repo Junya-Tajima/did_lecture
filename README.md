@@ -1,6 +1,6 @@
 # did_lecture_code
 
-This repository contains the stata code for my lectures, entitled "Recent Discussions in Difference-in-Differences". It is designed for students who want to understand recent discussions on difference-in-differencs (DID) and implement recently developed methods using stata. 
+This repository contains the stata code for my lectures, entitled "Recent Discussions in Difference-in-Differences". It is designed for students who want to understand recent discussions on difference-in-differences (DID) and implement recently developed methods using stata. 
 
 ## Data
 
