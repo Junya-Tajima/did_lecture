@@ -5,6 +5,7 @@ This repository contains the stata code for my lectures, entitled "Recent Discus
 ## Data
 
 Some files require a separate dta file to be downloaded. Each dta file can be downloaded at the links below:
+
 https://github.com/Junya-Tajima/did_lecture_data
 
 ##  Covered Contents
