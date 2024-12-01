@@ -42,7 +42,7 @@ You need these packages to run do-files:
 You can install these packages with the following command:
 
 ```bash
-ssc install reghfe
+ssc install reghdfe
 ssc install ftools
 ssc install ppmlhdfe
 ssc install event_plot
