@@ -1,6 +1,11 @@
-# did_lecture
+# did_lecture_code
 
-This repository contains the stata code for a lecture, entitled "Recent Discussions in Difference-in-Differences". It is designed for students and researchers who want to understand recent discussions on difference-in-differencs (DID) and implement recently developed methods using stata. 
+This repository contains the stata code for my lectures, entitled "Recent Discussions in Difference-in-Differences". It is designed for students who want to understand recent discussions on difference-in-differencs (DID) and implement recently developed methods using stata. 
+
+## Data
+
+Some files require a separate dta file to be downloaded. Each dta file can be downloaded at the links below:
+https://github.com/Junya-Tajima/did_lecture_data
 
 ##  Covered Contents
 
