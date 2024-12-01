@@ -114,9 +114,6 @@ use "processed.dta", clear
 * Conduct synthetic difference-in-differences estimation
 sdid loggdppc country year D, vce(placebo) seed(111) reps(200) method(sdid) g1on graph 
 
-* Conduct synthetic difference-in-differences estimation
-sdid loggdppc country year D, vce(placebo) seed(222) reps(200) method(did) g1on graph 
-
 ********************************************************************************************************************
 *** Placebo test 
 ********************************************************************************************************************
@@ -129,11 +126,11 @@ drop if year >= 1992
 * Generate a placebo treatment dummy variable
 gen Placebo = (country == "China" & year >= 1976)
 
-* SDID estimation
+* SDID estimation (Placebo Test)
 sdid loggdppc country year Placebo, vce(placebo) seed(333) reps(200) method(sdid) g1on graph 
 
 ********************************************************************************************************************
-***Event Study Plot 
+*** Event Study Plot 
 ********************************************************************************************************************
 * Restore the processed data
 use "processed.dta", clear 

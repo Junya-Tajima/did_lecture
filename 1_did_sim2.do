@@ -19,7 +19,7 @@
 * Clear the data
 clear
 
-* Set the number of observations to 30000
+* Set the number of observations to 20000
 set obs 20000
 
 * Set the seed for reproducibility
@@ -71,10 +71,12 @@ twoway(histogram y if treat == 1 & post == 0, color(stc1%70))(histogram y if tre
 
 ** Plot the means for the four groups: pre- and post-treatment for both treatment and control groups
 bysort treat post: egen y_mean = mean(y)
-
-twoway(line y_mean post if treat == 1, color(stc1))(line y_mean post if treat == 0, color(stc2)) ///
-      (scatter y_mean post if treat == 1, color(stc1) msize(large))(scatter y_mean post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
-	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) xtitle("POST") ytitle("Outcome Variable") xlabel(#2, nogrid) ylabel(, nogrid)
+twoway(line y_mean post if treat == 1, color(stc1)) ///
+      (line y_mean post if treat == 0, color(stc2)) ///
+      (scatter y_mean post if treat == 1, color(stc1) msize(large)) ///
+	  (scatter y_mean post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
+	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) ///
+	  xtitle("POST") ytitle("Outcome Variable") xlabel(#2, nogrid) ylabel(, nogrid)
 
 ** Plot the difference-in-differences estimate
 sum y_mean if treat == 1 & post == 0
@@ -86,14 +88,16 @@ generate y_cont_pre = r(mean)
 generate diff = y_treat_pre - y_cont_pre
 gen y_mean_plus_prediff = y_mean + diff if treat == 0
 
-twoway(line y_mean post if treat == 1, color(stc1))(line y_mean_plus_prediff post if treat == 0, color(stc2)) ///
-      (scatter y_mean post if treat == 1, color(stc1) msize(large))(scatter y_mean_plus_prediff post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
-	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) xtitle("POST") ytitle("Outcome Variable") xlabel(#2, nogrid) ylabel(, nogrid)
+twoway(line y_mean post if treat == 1, color(stc1)) ///
+      (line y_mean_plus_prediff post if treat == 0, color(stc2)) ///
+      (scatter y_mean post if treat == 1, color(stc1) msize(large)) ///
+	  (scatter y_mean_plus_prediff post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
+	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) ///
+	  xtitle("POST") ytitle("Outcome Variable") xlabel(#2, nogrid) ylabel(, nogrid)
 
 ************************************************************************************************************************************** 
 ** Difference-in-differences estimation using two-way fixed effects estimator
 ************************************************************************************************************************************** 
-** Difference-in-differences estimator using two-way fixed effects
 reghdfe y D, abs(id year) vce(cl id) nocons
 
 ************************************************************************************************************************************** 
@@ -150,9 +154,10 @@ gen citop = b + 1.96*se
 gen cibottom = b - 1.96*se
 
 * Plot each placebo estimate and 95% CI
-twoway(rspike citop cibottom time, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0))(sc b time, color(stc2) msize(large) msymbol(diamond)) ///
-     , xtitle("Placebo Year") xline(-1) yline(0, lcolor(black)) ytitle("Estimated Effects") legend(order(4)) xlabel(1 "2" 2 "3" 3 "4" 4 "5", nogrid) ///
-	   ylabel(, nogrid) title("Placebo Tests")
+twoway(rspike citop cibottom time, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0)) ///
+      (sc b time, color(stc2) msize(large) msymbol(diamond)), xtitle("Placebo Year") xline(-1) yline(0, lcolor(black)) ///
+	  ytitle("Estimated Effects") legend(order(4)) xlabel(1 "2" 2 "3" 3 "4" 4 "5", nogrid) ///
+	  ylabel(, nogrid) title("Placebo Tests")
 
 ** Event Study
 * Import the processed data
@@ -177,9 +182,10 @@ keep year coef se citop cibottom
 duplicates drop
 sort year
 
-twoway(rarea citop cibottom year, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0))(sc coef year, color(stc2) msize(large) msymbol(diamond)) ///
-      , xtitle("Event Time") xline(5) yline(0, lcolor(black)) ytitle("Estimated Effects") legend(order(4)) ///
-	  xlabel(1 "-5" 2 "-4" 3 "-3" 4 "-2" 5 "-1" 6 "0" 7 "1" 8 "2" 9 "3" 10 "4", nogrid) ylabel(, nogrid) title("Event Study Plot")
+twoway(rarea citop cibottom year, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0)) ///
+      (sc coef year, color(stc2) msize(large) msymbol(diamond)) , xtitle("Event Time") xline(5) yline(0, lcolor(black)) ///
+	  ytitle("Estimated Effects") legend(order(4)) xlabel(1 "-5" 2 "-4" 3 "-3" 4 "-2" 5 "-1" 6 "0" 7 "1" 8 "2" 9 "3" 10 "4", nogrid) ///
+	  ylabel(, nogrid) title("Event Study Plot")
 
 * Plotting event study results with different baselines
 forvalues k = 1(1)4{

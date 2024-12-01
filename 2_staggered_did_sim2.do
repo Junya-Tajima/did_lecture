@@ -19,7 +19,7 @@
 * clear the data
 clear
 
-* Set the number of observations to 3000
+* Set the number of observations to 30000
 set obs 30000
 
 * Set the seed for reproducibility
@@ -57,7 +57,7 @@ replace y = y + rnormal(9*(year - 6), 2^2) if group == 1 & year >= 6
 replace y = y + rnormal(3*(year - 12), 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(1*(year - 18), 2^2) if group == 3 & year >= 18
 
-* Plot the trends for both groups
+* Plot the trends for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
@@ -101,7 +101,7 @@ twoway (scatter y_resid D_resid if D == 0, color(stc2%40))(scatter y_resid D_res
 * Clear the data
 clear
 
-* Set the number of observations to 3000
+* Set the number of observations to 30000
 set obs 30000
 
 * Set the seed for reproducibility

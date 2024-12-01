@@ -1,11 +1,11 @@
-/* Install the required packages if they are not already installed
+/* Install the required package if it is not already installed
    ssc install sdid
    */
 
 **********************************************************************************************************************************************************
-** Simulation 1 : Assess the prediction accuracy of three estimation methods 
-** Use prefectural data from 1975 to 2007 obtained from e-Stat.
-** The outcome variable is the logarithmic transformation of the number of marriages.
+** Simulation 1 : Assess the prediction accuracy of three estimation methods (DID, SCM, and SDID)
+** Use prefectural data from 1975 to 2007 obtained from e-Stat
+** The outcome variable is the logarithmic transformation of the number of marriages
 ** A prefecture is randomly assigned to a pseudo-treatment group with a 20% probability
 ** The post-treatment period starts from a randomly selected year between 1976 and 2007
 ** Perform SDID, SC, and DID, and calculate and store the estimated ATT for each method
@@ -24,6 +24,7 @@ matrix define SDID_DIFFERENCE_SQUARED = J(1000, 1, .)
 matrix define SC_DIFFERENCE_SQUARED = J(1000, 1, .)
 matrix define DID_DIFFERENCE_SQUARED = J(1000, 1, .)
 
+* Set the seed 
 set seed 999
 
 *** Estimate and store 1000 squared differences
@@ -32,7 +33,7 @@ forvalues k = 1(1)1000{
 ** Download the data
 use "marriage.dta", clear
 
-** Creating outcome variables
+** Creating the outcome variable
 gen logy = log(marriage)
 
 ** Generate a dummy variable that takes the value 1 with a 20% probability
@@ -119,13 +120,13 @@ keep SDID_RMSE SC_RMSE DID_RMSE
 
 **********************************************************************************************************************************************************
 ** Simulation 2 : Assess the prediction accuracy of three estimation methods while considering the influence of fixed effects on treatment assignment
-**1 Use prefectural data from 1975 to 2007 obtained from e-Stat
-**2 The outcome variable is the logarithmic transformation of the number of marriages
-**3 Estimate prefecture and year fixed effects using regression 
-**4 The treatment assignment probability is set to increase with higher prefectural fixed effects
-**5 The treatment start year is selected from one of the three years with the smallest year fixed effects
-**6 Perform SDID, SC, and DID, and calculate and store the estimated ATT for each method
-**7 Repeat the above process 1000 times and compute the RMSE
+** Use prefectural data from 1975 to 2007 obtained from e-Stat
+** The outcome variable is the logarithmic transformation of the number of marriages
+** Estimate prefecture and year fixed effects using regression 
+** The treatment assignment probability is set to increase with higher prefecture fixed effects
+** The treatment start year is selected from one of the three years with the smallest year fixed effects
+** Perform SDID, SC, and DID, and calculate and store the estimated ATT for each method
+** Repeat the above process 1000 times and compute the RMSE
 **********************************************************************************************************************************************************
 
 *** Create an empty vector for storing 1000 estimated values
@@ -133,6 +134,7 @@ matrix define SDID_DIFFERENCE_SQUARED = J(1000, 1, .)
 matrix define SC_DIFFERENCE_SQUARED = J(1000, 1, .)
 matrix define DID_DIFFERENCE_SQUARED = J(1000, 1, .)
 
+*** Set the seed
 set seed 888
 
 *** Estimate and store 1000 squared differences
@@ -141,7 +143,7 @@ forvalues k = 1(1)1000{
 ** Download the data
 use "marriage.dta", clear
 
-** Creating outcome variables
+** Creating the outcome variable
 gen logy = log(marriage)
 
 ** Convert a string variable into a numeric variable 

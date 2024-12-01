@@ -374,7 +374,7 @@ replace y = y + rnormal(3, 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(3, 2^2) if group == 3 & year >= 18
 
 
-*** Plot the trends for each
+*** Plot the trends for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///

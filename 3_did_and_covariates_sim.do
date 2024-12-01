@@ -23,7 +23,7 @@ ssc install drdid
 * Clear the data
 clear
 
-* Set the number of observations to 20000
+* Set the number of observations to 2000000
 set obs 2000000
 
 * Create the panel data
@@ -50,7 +50,7 @@ gen gpa2 = gpa^2
 gen grade2 = grade^2
 
 * Create a dummy variable for the treatment group
-* Each Student's probability of getting into Aclass depends on pre-treatment GPA and gradep
+* Each Student's probability of getting into Aclass depends on pre-treatment GPA and grade
 gen TREAT = rbinomial(1, logistic(0.02*gpa2 + 0.02*grade2 + 0.01*gpa2*grade2 + 0.001))
 by id, sort: egen treat = first(TREAT)
 

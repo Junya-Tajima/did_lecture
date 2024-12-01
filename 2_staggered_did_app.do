@@ -47,7 +47,7 @@ twoway (line POST_mean year, color(stc1)) (scatter POST_mean year, color(stc1)) 
 *** Two-way fixed effects estimator
 *************************************************************************************************************************************************
 *** Conduct static DID estimation using two-way fixed effects estimator
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe all_patno postentry, abs(fips year) vce(cl fips) nocons
 
 * Confirm the mean of the outcome variable to estimate effect size
@@ -79,7 +79,7 @@ forvalues l = 1/15 {
 * Normalise lead1 indicating one period before the treatment to 0
 replace lead1 = 0 
 
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe all_patno lead* lag* , abs(fips year) cluster(fips) nocons
 
 * Plot the resuls of event study anlysis
@@ -89,7 +89,7 @@ event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtit
 			trimlead(15) trimlag(17)
 						
 * Plot the resuls of event study anlysis
-* Limit the range of the graph to to the 5 years before and after the treatment
+* Limit the range of the graph to the 5 years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("TWFE Event Study") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g1, replace)) ///
 			trimlead(5) trimlag(5)
@@ -100,10 +100,10 @@ forvalues k = 1(1)15{
 	replace lead`k' = 0 
 }
 
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe all_patno lead* lag* , abs(fips year) cluster(fips) nocons
 
-* Plot the resuls of event study anlysis
+* Plot the resuls of event study analysis
 * Display results for the entire period
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("TWFE Event Study") xlabel(, nogrid) ylabel(, nogrid)) 
@@ -113,7 +113,7 @@ event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtit
 *** Diagnosis for heterogeneous treatment effects
 *************************************************************************************************************************************************	
 *** Bacon decomposition (2021)
-* Set the panel data structure using id as the group variable and year as the time variable
+* Set the panel data structure using fips as the group variable and year as the time variable
 xtset fips year
 
 * Conduct Bacon-decomposition
@@ -154,12 +154,12 @@ estat calendar
 * Calculate the weighted average of treatment effects for each event time
 estat event, estore(cs)
 
-* Plot the resuls of event study anlysis
+* Plot the resuls of event study analysis
 * Display results for the entire period
 event_plot cs, default_look stub_lag(Tp#) stub_lead(Tm#) together graph_opt(xtitle("Event time") ///
 ytitle("Estimates") title("Callaway and Sant'Anna (2021)") xlabel(, nogrid) ylabel(, nogrid)) 
 			
-* Limit the range of the graph to to the five years before and after the treatment
+* Limit the range of the graph to the five years before and after the treatment
 event_plot cs, default_look stub_lag(Tp#) stub_lead(Tm#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("Callaway and Sant'Anna (2021)") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g2, replace)) ///
 			trimlead(5) trimlag(5)
@@ -188,12 +188,12 @@ estat calendar
 * Calculate the weighted average of treatment effects for each event time
 estat event, estore(cs)
 
-* Plot the resuls of event study anlysis
+* Plot the resuls of event study analysis
 * Display results for the entire period
 event_plot cs, default_look stub_lag(Tp#) stub_lead(Tm#) together graph_opt(xtitle("Event time") ///
 ytitle("Estimates") title("Callaway and Sant'Anna (2021)") xlabel(, nogrid) ylabel(, nogrid)) 
 			
-* Limit the range of the graph to to the five years before and after the treatment
+* Limit the range of the graph to the five years before and after the treatment
 event_plot cs, default_look stub_lag(Tp#) stub_lead(Tm#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("Callaway and Sant'Anna (2021)") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g2, replace)) ///
 			trimlead(5) trimlag(5)

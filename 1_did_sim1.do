@@ -6,9 +6,10 @@
 *******************************************************************************************************
 ** Simulation : Comparing five different difference-in-differences estimation methods
 ** N = 20000
-** There are two groups (treatment and control)in the sample
+** There are two groups (treatment and control) in the sample
 ** There are two periods (post and pre) in the sample
-** DGP: Y = 30 + 10*POST + 10*TREAT + 30*(TREAT*POST) + U; U ~ N(0,1)
+** DGP: Y = 30 + 10*POST + 10*TREAT + 30*(TREAT*POST) + U
+** U ~ N(0,1)
 ** Compute DID estimates using explained five methods
 ** Compare each DID estimates
 *******************************************************************************************************
@@ -16,7 +17,7 @@
 *******************************************************************************************************
 ** Data Creation
 *******************************************************************************************************
-* Delete all data
+* Delete all the data
 clear
 
 * Set the number of observations

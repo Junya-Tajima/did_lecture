@@ -25,7 +25,7 @@ drop if market == 5 | market == 6 | market == 7
 ** Generate the indicator variable which equals to one for treatment firms
 generate treat = (market == 1 | market == 2)
 
-** Generate the indicator variable  which equals to one for post-treatment periods
+** Generate the indicator variable which equals to one for post-treatment periods
 generate post = (year >= 2016)
 
 ** Generate the treatment dummy variable
@@ -55,7 +55,6 @@ twoway(histogram ratio if treat == 1 & post == 0 & ratio <= 10 & ratio >= 0, col
 
 ** Plot the means for the four groups: pre- and post-treatment for both treatment and control firms
 bysort treat post: egen ratio_mean = mean(ratio)
-
 twoway(line ratio_mean post if treat == 1, color(stc1))(line ratio_mean post if treat == 0, color(stc2)) ///
       (scatter ratio_mean post if treat == 1, color(stc1) msize(large))(scatter ratio_mean post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
 	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) xtitle("POST") ytitle("Shareholder-Worker Ratio") xlabel(#2, nogrid) ylabel(, nogrid)
@@ -82,7 +81,7 @@ reghdfe ratio D, abs(id year) vce(cl id) nocons
 ** Check the mean of the ratio for the treatment group in the pre-treatment period
 summarize ratio if treat == 1 & post == 0
 
-*** Pre-trennds checks
+*** Pre-trends checks
 ** Trends plot
 * Calculate the annual mean of the outcome variable separately for the treatment group and the control group
 bysort treat year: egen ratio_mean_year = mean(ratio)
@@ -223,7 +222,6 @@ twoway(histogram roe if treat == 1 & post == 0, color(stc1%70))(histogram roe if
 reghdfe ratio D inst roe, abs(id year) vce(cl id)
 
 ** Event study plot controlling for confounding events
-
 gen time = 0
 replace time = year - 2009 if year <= 2014
 replace time = year - 2010 if year >= 2016

@@ -19,7 +19,7 @@
 ***********************************************************************************************
 ** Data Creation
 ***********************************************************************************************
-*Clean environment
+* Clean environment
 clear all
 macro drop _all
 set more off
@@ -55,13 +55,14 @@ gen D = treat*post
 * Y is the non-negative outcome variable
 gen Y = int(runiform()*5) + int(runiform()*50)*treat + int(runiform()*5)*post + int(runiform()*5)*D
 
-* save the processed data as "poisson.dta"
+* Save the processed data as "poisson.dta"
 save "poisson.dta", replace
 
 * Plotting trends for treatment and control groups
 bysort treat time: egen Y_mean = mean(Y)
-twoway(line Y_mean time if treat == 1, color(stc1))(line Y_mean time if treat == 0, color(stc2))(scatter Y_mean time if treat == 1, color(stc1)) ///
-      (scatter Y_mean time if treat == 0, color(stc2)), legend(order(1 "Treatment" 2 "Control")) xline(6)
+twoway(line Y_mean time if treat == 1, color(stc1))(line Y_mean time if treat == 0, color(stc2)) ///
+      (scatter Y_mean time if treat == 1, color(stc1)) (scatter Y_mean time if treat == 0, color(stc2)) ///
+	  , legend(order(1 "Treatment" 2 "Control")) xline(6)
 
 ***********************************************************************************************
 ** Standard (Linear) Difference-in-Differences Estimation
@@ -135,7 +136,7 @@ graph combine q1 q2, scale(0.8)
 ** The outcome variable y follows a normal distribution
 ** We fisrt conduct DID estimation using the level of y
 ** We next conduct DID estimation using log-transformed y
-** Confirm whetehr Two specifications create the same result
+** Confirm whetehr two specifications create the same result
 ***********************************************************************************************
 
 ***********************************************************************************************
@@ -144,7 +145,7 @@ graph combine q1 q2, scale(0.8)
 * Clear the data
 clear
 
-* Set the number of observations to 20000
+* Set the number of observations to 1000000
 set obs 1000000
 
 * Create the panel data

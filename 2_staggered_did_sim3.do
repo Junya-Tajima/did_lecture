@@ -95,8 +95,8 @@ replace lead1 = 0
 * Conduct Event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("TWFE Event Study") xlabel(-5(1)5, nogrid) ylabel(, nogrid)) ///
 			trimlead(5) trimlag(5) 
@@ -109,7 +109,7 @@ addplot: (scatteri 0 -5 0 0 3 5, xlabel(-5(1)5) recast(line) lp(dash) lc(red))
 ** N = 30000
 ** There are 3 groups in the sample
 ** Treatment begins at 6th(group1), 12th(group2), and 18th year(group3)
-** y = rnormal(0.3, 0.5^2) + year + rnormal(0.9*(year - each timing), 0.5^2)*treat*post for group1
+** y = rnormal(3, 0.5^2) + year + rnormal(0.9*(year - each timing), 0.5^2)*treat*post for group1
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.3*(year - each timing), 0.5^2)*treat*post for group2
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.1*(year - each timing), 0.5^2)*treat*post for group3
 ** Run the DID regression
@@ -193,8 +193,8 @@ replace lead1 = 0
 * Conduct Event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("TWFE Event Study") xlabel(-5(1)5, nogrid) ylabel(, nogrid)) ///
 			trimlead(5) trimlag(5) 
@@ -284,8 +284,8 @@ replace lead1 = 0
 * Conduct Event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("TWFE Event Study") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g1, replace)) ///
 			trimlead(5) trimlag(5)
@@ -312,7 +312,7 @@ keep if group >= 2
 gen sub = 2
 save "sub2.dta", replace
 
-* Restrict the sample to only comparisons that are safe for Group 2
+* Restrict the sample to only comparisons that are safe for Group 3
 use "maindata.dta", clear
 keep if (year >= 18 - 5) & (year <= 18 + 5)
 keep if group == 3
@@ -325,8 +325,8 @@ append using "sub2.dta"
 * Conduct event study DID estimation (including sab-individual and sub-year fixed effects)
 reghdfe y  lag* lead* , abs(i.id#i.sub i.year#i.sub) vce(cl id)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("Stacked Regression") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g2, replace)) ///
 			trimlead(5) trimlag(5)
@@ -342,8 +342,8 @@ use "maindata.dta", clear
 csdid y, ivar(id) time(year) gvar(timing) notyet wboot method(dripw)
 estat event, estore(cs)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot cs, default_look stub_lag(Tp#) stub_lead(Tm#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("Callaway and Sant'Anna") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g3, replace)) ///
 			trimlead(5) trimlag(5)
@@ -365,8 +365,8 @@ predict yhat , residual
 * Remove the observations which have no comprison group
 reg yhat lead* lag* if group != 3 | year < 18, nocons vce(cl id)
 
-* Plot the resuls of event study anlysis
-* Limit the range of the graph to to the five years before and after the treatment
+* Plot the resuls of event study analysis
+* Limit the range of the graph to the five years before and after the treatment
 event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtitle("Event time") ///
             ytitle("Estimates") title("Gardner") xlabel(-5(1)5, nogrid) ylabel(, nogrid) name(g4, replace)) ///
 			trimlead(5) trimlag(5)

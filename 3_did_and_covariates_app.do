@@ -8,7 +8,7 @@
 ** Data File : performance.dta 
 ** Data Source : Nikkei NEEDS FinancialQuest, Japan Company Handbook CD-ROM
 ** Practice of DID analysis with covariates
-** Find out how covariates changes the results of DID
+** Find out how covariates change the results of DID
 ******************************************************************************************************************************
 
 ******************************************************************************************************************************
@@ -42,7 +42,7 @@ summarize
 twoway(histogram roa if treat == 1 & post == 0, color(stc1%70))(histogram roa if treat == 0 & post == 0, color(stc2%70)) ///
       , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
 
-** Create a histogram of the ratio for the treatment group and the control group in the pre-treatment period (excluding firms whose ROA exceeds 0.2)
+** Create a histogram of ROA for the treatment group and the control group in the pre-treatment period (excluding firms whose ROA exceeds 0.2)
 twoway(histogram roa if treat == 1 & post == 0 & roa <= 10, color(stc1%70)) ///
       (histogram roa if treat == 0 & post == 0 & roa <= 10, color(stc2%70)) ///
 	  , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
@@ -138,7 +138,7 @@ twoway(rspike citop cibottom time, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%2
 * Import the data
 use "Processed_Data", clear
 
-* Create a variable specifying  the treatment timing
+* Create a variable specifying the treatment timing
 replace year = year - 1 if year >= 2016
 egen gvar = csgvar(D), ivar(id) tvar(year)
 
@@ -159,7 +159,7 @@ csdid_plot
 * Import the data
 use "Processed_Data", clear
 
-* Create a variable specifying  the treatment timing
+* Create a variable specifying the treatment timing
 replace year = year - 1 if year >= 2016
 egen gvar = csgvar(D), ivar(id) tvar(year)
 
@@ -180,7 +180,7 @@ csdid_plot
 * Import the data
 use "Processed_Data", clear
 
-* Create a variable specifying  the treatment timing
+* Create a variable specifying the treatment timing
 replace year = year - 1 if year >= 2016
 egen gvar = csgvar(D), ivar(id) tvar(year)
 

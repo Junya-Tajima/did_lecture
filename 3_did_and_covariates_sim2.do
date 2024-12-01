@@ -20,7 +20,7 @@ clear
 set obs 20000
 
 * Create the panel data
-* Generate panel data for 1000 individuals over 2 periods
+* Generate panel data for 10000 individuals over 2 periods
 gen num = _n
 gen id = _n
 gen post = 0
@@ -52,13 +52,12 @@ replace w = rnormal(1, 0.5) + rnormal(3.5, 0.5^2)*post if treat == 1
 * Make w a time-invariant covariate W
 by id, sort : egen W = first(w)
 
-
 * Generate the outcome variable
 * The trend of the outcome variable is influenced by W and X
-* True treatment effct is 0.5
+* True treatment effect is 0.5
 gen y = 0.2 + 0.1*treat + 0.3*post + rnormal(0.5, 0.5^2)*D + 0.4*X*post + 0.6*W*post + rnormal()
 
-* Plotting the trend of the coutcome variable
+* Plotting the trend of the outcome variable
 bysort treat post: egen y_mean = mean(y)
 twoway(line y_mean post if treat == 1)(line y_mean post if treat == 0), ///
       xline(0.5) legend(order(1 "Treat" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
@@ -94,7 +93,7 @@ clear
 set obs 20000
 
 * Create the panel data
-* Generate panel data for 1000 individuals over 2 periods
+* Generate panel data for 10000 individuals over 2 periods
 gen num = _n
 gen id = _n
 gen post = 0
@@ -126,13 +125,12 @@ replace w = rnormal(1, 0.5) + rnormal(3.5, 0.5^2)*post if treat == 1
 * Make w a time-invariant covariate W
 by id, sort : egen W = first(w)
 
-
 * Generate the outcome variable
 * The trend of the outcome variable is influenced by w and x (changes of covariates)
-* True treatment effct is 0.5
+* True treatment effect is 0.5
 gen y = 0.2 + 0.1*treat + 0.3*post + rnormal(0.5, 0.5^2)*D + 0.4*x + 0.6*w + rnormal()
 
-* Plotting the trend of the coutcome variable
+* Plotting the trend of the outcome variable
 bysort treat post: egen y_mean = mean(y)
 twoway(line y_mean post if treat == 1)(line y_mean post if treat == 0), ///
       xline(0.5) legend(order(1 "Treat" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)

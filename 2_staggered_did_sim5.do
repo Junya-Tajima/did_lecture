@@ -4,7 +4,7 @@
    */
 
 **************************************************************************************************************************
-** Simulation: Analyze a staggered situation using the method from Wooldridge (2021) 
+** Simulation: Analyze a staggered DID situation using the method from Wooldridge (2021) 
 ** Create panel data
 ** ID ranges from 1 to 3000
 ** There are 30 periods in the sample
@@ -17,7 +17,6 @@
 **************************************************************************************************************************
 ** Data Creation
 **************************************************************************************************************************
-
 * Clear the data
 clear
 

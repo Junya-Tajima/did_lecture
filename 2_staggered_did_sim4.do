@@ -19,7 +19,7 @@
 ** To make the results from CS estimator comparable to the conventional event study, we need to add the "long2" option when using the csdid command
 ** We first conduct the conventional event study analysis using TWFE estimator
 ** We next conduct the CS event study analysis to see the difference of the results
-** We finally add long2 option to make the results of CSDID cmparable to TWFEDD
+** We finally add long2 option to make the results of CSDID comparable to TWFEDD
 **********************************************************************************************************************************************************************
 
 **********************************************************************************************************************************************************************
@@ -97,7 +97,7 @@ egen gvar = csgvar(D), ivar(id) tvar(year)
 csdid y D, ivar(id) time(year) gvar(gvar)
 estat event, estore(cs)
 
-* Plot the resuls of event study anlysis
+* Plot the resuls of event study analysis
 csdid_plot, name(g2, replace) title("Callaway and Sant'Anna (2021)")
 
 * Compare the results of CSDID to the results of TWFEDD
@@ -114,7 +114,7 @@ egen gvar = csgvar(D), ivar(id) tvar(year)
 csdid y D, ivar(id) time(year) gvar(gvar) long2
 estat event, estore(cs)
 
-* Plot the resuls of event study anlysis
+* Plot the resuls of event study analysis
 csdid_plot, name(g3, replace) title("Callaway and Sant'Anna (2021)")
 
 * Compare the results of CSDID to the results of TWFEDD
