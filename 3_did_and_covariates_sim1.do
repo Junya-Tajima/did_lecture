@@ -6,7 +6,7 @@ ssc install drdid
 */
 
 *******************************************************************************************************
-** Simulation: Difference-in-differeces with time-invariant covariates
+** Simulation: Difference-in-differences with time-invariant covariates
 ** N = 2000000 (1000000 students and two periods)
 ** 2×2 design (Pre and Post, Treat and Control)
 ** Y is the test score of each student
