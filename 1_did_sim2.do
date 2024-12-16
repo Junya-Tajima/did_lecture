@@ -69,7 +69,7 @@ summarize y, detail
 twoway(histogram y if treat == 1 & post == 0, color(stc1%70))(histogram y if treat == 0 & post == 0, color(stc2%70)) ///
       , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
 
-** Plot the means for the four groups: pre- and post-treatment for both treatment and control groups
+** Plot the means for the four groups: pre-and post-treatment for both treatment and control groups
 bysort treat post: egen y_mean = mean(y)
 twoway(line y_mean post if treat == 1, color(stc1)) ///
       (line y_mean post if treat == 0, color(stc2)) ///
@@ -107,7 +107,7 @@ reghdfe y D, abs(id year) vce(cl id) nocons
 * Calculate the annual mean of the outcome variable separately for the treatment group and the control group
 bysort treat year: egen y_mean_year = mean(y)
 
-* Plotting trends of the outcome variable
+* Plot the trends of the outcome variable
 twoway(line y_mean_year year if treat == 1, color(black))(line y_mean_year year if treat == 0, color(black) lp(dash)) ///
 	  (scatter y_mean_year year if treat == 1 , color(stc1) msymbol(circle) msize(large)) ///
 	  (scatter y_mean_year year if treat == 0 , color(stc2) msymbol(triangle) msize(large)) ///
@@ -166,7 +166,7 @@ use "did.dta", clear
 * Two-way fixed effects estimator allowing for dynamic effects
 reghdfe y treat##ib5.year, abs(id year) vce(cl id)
 
-* Plotting event study estimates and confidence intervals
+* Plot the event study estimates and confidence intervals
 gen coef = .
 gen se = .
 
@@ -187,7 +187,7 @@ twoway(rarea citop cibottom year, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25
 	  ytitle("Estimated Effects") legend(order(4)) xlabel(1 "-5" 2 "-4" 3 "-3" 4 "-2" 5 "-1" 6 "0" 7 "1" 8 "2" 9 "3" 10 "4", nogrid) ///
 	  ylabel(, nogrid) title("Event Study Plot")
 
-* Plotting event study results with different baselines
+* Plot the event study results with different baselines
 forvalues k = 1(1)4{
 
 use "did.dta", clear
