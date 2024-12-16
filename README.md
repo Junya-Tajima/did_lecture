@@ -8,6 +8,7 @@ Some files require a separate dta file to be downloaded. Each dta file can be do
 
 https://github.com/Junya-Tajima/did_lecture_data
 
+## Prerequisites
 You need these packages to run do-files:
 
 - `reghdfe`
