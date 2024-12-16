@@ -62,7 +62,7 @@ replace Y = Y + rnormal(10*(year - 7), 2^2)*D if g1 == 1
 replace Y = Y + rnormal(5*(year - 15), 2^2)*D if g2 == 1
 replace Y = Y + rnormal(1*(year - 23), 2^2)*D if g3 == 1
 
-* Create a variable indicating the number of years since treatment 
+* Create a variable indicating the number of years since the treatment 
 * Set all pre-treatment periods to 0
 gen S1 = 0
 gen S2 = 0

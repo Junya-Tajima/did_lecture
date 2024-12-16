@@ -7,7 +7,7 @@
    */
 
 **********************************************************************************************************************************************************************
-** Simulation: Interpreting Event-Studies from Recent Difference-in-difference methods
+** Simulation: Interpreting Event-Studies from Recent Difference-in-differences methods
 ** N = 30000
 ** There are 2 groups in the sample (treatment/control)
 ** There are 30 periods in the sample
@@ -15,7 +15,7 @@
 ** Assume linear violation for the trend of the outcome variable between the treatment and control groups
 ** Conventional event study DID set one period before the treatment as the baseline point for all estimates
 ** Callaway and Sant'Anna Estimator (2021) uses one period before the target year as the baseline point for the calculation of pre-treatment estimates 
-** Because of the above difference, the two mwthods might have different results
+** Because of the above difference, the two methods might have different results
 ** To make the results from CS estimator comparable to the conventional event study, we need to add the "long2" option when using the csdid command
 ** We first conduct the conventional event study analysis using TWFE estimator
 ** We next conduct the CS event study analysis to see the difference of the results

@@ -58,7 +58,7 @@ gen Y = int(runiform()*5) + int(runiform()*50)*treat + int(runiform()*5)*post + 
 * Save the processed data as "poisson.dta"
 save "poisson.dta", replace
 
-* Plotting trends for treatment and control groups
+* Plot the trends for treatment and control groups
 bysort treat time: egen Y_mean = mean(Y)
 twoway(line Y_mean time if treat == 1, color(stc1))(line Y_mean time if treat == 0, color(stc2)) ///
       (scatter Y_mean time if treat == 1, color(stc1)) (scatter Y_mean time if treat == 0, color(stc2)) ///
@@ -136,7 +136,7 @@ graph combine q1 q2, scale(0.8)
 ** The outcome variable y follows a normal distribution
 ** We fisrt conduct DID estimation using the level of y
 ** We next conduct DID estimation using log-transformed y
-** Confirm whetehr two specifications create the same result
+** Confirm whether two specifications create the same result
 ***********************************************************************************************
 
 ***********************************************************************************************
@@ -175,12 +175,12 @@ replace y = y + rnormal(30, 0.5) if treat == 1 & post == 1
 gen logy = log(y)
 
 ***********************************************************************************************
-** Difference-in-Differences Estimation using the level of the outcome variable
+** Difference-in-differences estimation using the level of the outcome variable
 ***********************************************************************************************
 reg y D treat post 
 
 ***********************************************************************************************
-** Difference-in-Differences Estimation using the log-transformed outcome variable
+** Difference-in-differences estimation using the log-transformed outcome variable
 ***********************************************************************************************
 reg logy D treat post
 

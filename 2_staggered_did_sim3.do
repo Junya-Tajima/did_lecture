@@ -8,15 +8,15 @@
    */
 
 ****************************************************************************************************************************
-** Simulation 1: Staggered DID + Heterogenous effects + Event Study + No Real Pre-Trends
+** Simulation 1: Staggered DID + Heterogeneous effects + Event Study + No Real Pre-Trends
 ** N = 30000
 ** There are 3 groups in the sample
 ** Treatment begins at 6th(group1), 12th(group2), and 18th year(group3)
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.9*(year - each timing), 0.5^2)*treat*post for group1
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.3*(year - each timing), 0.5^2)*treat*post for group2
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.1*(year - each timing), 0.5^2)*treat*post for group3
-** Run the DID regression
-** Create Event study plot
+** Run a DID regression
+** Create event study plot
 ****************************************************************************************************************************
 *** Create the data
 * Clear the data
@@ -69,7 +69,7 @@ replace timing = 18 if group == 3
 * Create the variable indicating how many years has it been since each group received the treatment
 gen relative = year - timing
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
@@ -92,7 +92,7 @@ forvalues l = 1/17 {
 * Normalise lead1 indicating one period before the treatment to 0
 replace lead1 = 0 
 
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
 * Plot the resuls of event study analysis
@@ -105,15 +105,15 @@ event_plot, default_look stub_lag(lag#) stub_lead(lead#) together graph_opt(xtit
 addplot: (scatteri 0 -5 0 0 3 5, xlabel(-5(1)5) recast(line) lp(dash) lc(red))
 
 ****************************************************************************************************************************
-** Simulation 2: Staggered DID + Heterogenous effects + Event Study + Dropping never treated + No Real Pre-Trends
+** Simulation 2: Staggered DID + Heterogeneous effects + Event Study + Dropping never-treated + No Real Pre-Trends
 ** N = 30000
 ** There are 3 groups in the sample
 ** Treatment begins at 6th(group1), 12th(group2), and 18th year(group3)
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.9*(year - each timing), 0.5^2)*treat*post for group1
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.3*(year - each timing), 0.5^2)*treat*post for group2
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.1*(year - each timing), 0.5^2)*treat*post for group3
-** Run the DID regression
-** Create Event study plot
+** Run a DID regression
+** Create event study plot
 ****************************************************************************************************************************
 *** Create the data
 * Clear the data
@@ -169,7 +169,7 @@ gen relative = year - timing
 * Drop the group4
 drop if group == 4
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(scatter Outcome year if group == 1, color(stc1)) ///
@@ -190,7 +190,7 @@ forvalues l = 1/17 {
 * Normalise lead1 indicating one period before the treatment to 0
 replace lead1 = 0 
 
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
 * Plot the resuls of event study analysis
@@ -211,7 +211,7 @@ addplot: (scatteri 0 -5 0 0 3 5, xlabel(-5(1)5) recast(line) lp(dash) lc(red))
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.3*(year - each timing), 0.5^2)*treat*post for group2
 ** y = rnormal(3, 0.5^2) + year + rnormal(0.1*(year - each timing), 0.5^2)*treat*post for group3
 ** Use alternative estimators
-** Create Event study plot
+** Create event study plot
 ****************************************************************************************************************************
 *** Create the data
 * Clear the data
@@ -281,7 +281,7 @@ forvalues l = 1/17 {
 * Normalise lead1 indicating one period before the treatment to 0
 replace lead1 = 0 
 
-* Conduct Event study DID estimation
+* Conduct event study DID estimation
 reghdfe y lead* lag* , a(id year) cluster(id)
 
 * Plot the resuls of event study analysis
