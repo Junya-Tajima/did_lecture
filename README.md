@@ -8,22 +8,6 @@ Some files require a separate dta file to be downloaded. Each dta file can be do
 
 https://github.com/Junya-Tajima/did_lecture_data
 
-##  Covered Contents
-
-- **Introduction to DID**: I explain the basic concepts of DID in the canonical case (2 periods, one group becomes treated in the second period, the other is never treated) and the conditions that should be satisfied to identify ATT (Average Treatment Effect on the Treated).
-- **Staggered DID**: I explain the issues in DID involving staggered treatment timing and many periods and introduce alternative estimators.
-- **DID and Covariates**: I explain the concepts of Conditional Parallel Trends Assumption (CPTA) and present several methods to conduct DID estimation, including time-invariant / time-varying covariates. 
-- **Synthetic DID**: I review the properties of Synthetic DID and apply this method to the actual data.
-- **DID and Sensitivity Analysis**: I explain some disadvantages of conventional pre-trend tests and review some sensitivity analyses that have been developed recently. 
-
-##  Features
-
-- Advanced lectures for second-year master's students in economics. 
-- Students are expected to already have a solid understanding of econometrics and causal inference.
-- Ready-to-use Stata code and datasets.
-
-## Prerequisites
-
 You need these packages to run do-files:
 
 - `reghdfe`
