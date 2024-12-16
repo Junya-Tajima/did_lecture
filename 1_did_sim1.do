@@ -11,7 +11,7 @@
 ** DGP: Y = 30 + 10*POST + 10*TREAT + 30*(TREAT*POST) + U
 ** U ~ N(0,1)
 ** Compute DID estimates using explained five methods
-** Compare each DID estimates
+** Compare each DID estimate
 *******************************************************************************************************
 
 *******************************************************************************************************
