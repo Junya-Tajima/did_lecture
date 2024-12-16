@@ -48,7 +48,7 @@ summarize ratio, detail
 twoway(histogram ratio if treat == 1 & post == 0, color(stc1%70))(histogram ratio if treat == 0 & post == 0, color(stc2%70)) ///
       , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
 
-** Create a histogram of the ratio for the treatment group and the control group in the pre-treatment period (excluding firms whose the ratio exceeds 10)
+** Create a histogram of the ratio for the treatment group and the control group in the pre-treatment period (excluding a firm whose ratio exceeds 10)
 twoway(histogram ratio if treat == 1 & post == 0 & ratio <= 10 & ratio >= 0, color(stc1%70)) ///
       (histogram ratio if treat == 0 & post == 0 & ratio <= 10 & ratio >= 0, color(stc2%70)) ///
 	  , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid)
@@ -69,12 +69,15 @@ generate ratio_cont_pre = r(mean)
 generate diff = ratio_treat_pre - ratio_cont_pre
 gen ratio_mean_plus_prediff = ratio_mean + diff if treat == 0
 
-twoway(line ratio_mean post if treat == 1, color(stc1))(line ratio_mean_plus_prediff post if treat == 0, color(stc2)) ///
-      (scatter ratio_mean post if treat == 1, color(stc1) msize(large))(scatter ratio_mean_plus_prediff post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
-	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) xtitle("POST") ytitle("Shareholder-Worker Ratio") xlabel(#2, nogrid) ylabel(, nogrid)
+twoway(line ratio_mean post if treat == 1, color(stc1)) ///
+      (line ratio_mean_plus_prediff post if treat == 0, color(stc2)) ///
+      (scatter ratio_mean post if treat == 1, color(stc1) msize(large)) ///
+	  (scatter ratio_mean_plus_prediff post if treat == 0, color(stc2) msize(large) msymbol(triangle)) ///
+	  , xline(0.5) legend(order(3 "Treatment" 4 "Control")) xtitle("POST") ytitle("Shareholder-Worker Ratio") ///
+	  xlabel(#2, nogrid) ylabel(, nogrid)
 
 
-*** Estimating the effects of the corporate governance reform on distrubution inequality
+*** Estimate the effects of the corporate governance reform on distribution inequality
 ** Difference-in-differences estimator using two-way fixed effects
 reghdfe ratio D, abs(id year) vce(cl id) nocons
 
@@ -86,9 +89,11 @@ summarize ratio if treat == 1 & post == 0
 * Calculate the annual mean of the outcome variable separately for the treatment group and the control group
 bysort treat year: egen ratio_mean_year = mean(ratio)
 
-* Plotting trends of the outcome variable
-twoway(line ratio_mean_year year if treat == 1 & year <= 2014, color(black))(line ratio_mean_year year if treat == 0 & year <= 2014, color(black) lp(dash)) ///
-      (line ratio_mean_year year if treat == 1 & year >= 2016, color(black))(line ratio_mean_year year if treat == 0 & year >= 2016, color(black) lp(dash)) ///
+* Plot the trends of the outcome variable
+twoway(line ratio_mean_year year if treat == 1 & year <= 2014, color(black)) ///
+      (line ratio_mean_year year if treat == 0 & year <= 2014, color(black) lp(dash)) ///
+      (line ratio_mean_year year if treat == 1 & year >= 2016, color(black)) ///
+	  (line ratio_mean_year year if treat == 0 & year >= 2016, color(black) lp(dash)) ///
 	  (scatter ratio_mean_year year if treat == 1 & year <= 2014, color(stc1) msymbol(circle) msize(large)) ///
 	  (scatter ratio_mean_year year if treat == 0 & year <= 2014, color(stc2) msymbol(triangle) msize(large)) ///
 	  (scatter ratio_mean_year year if treat == 1 & year >= 2016, color(stc1) msymbol(circle) msize(large)) ///
@@ -135,9 +140,10 @@ gen citop = b + 1.96*se
 gen cibottom = b - 1.96*se
 
 * Plot each placebo estimate and 95% CI
-twoway(rspike citop cibottom time, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0))(sc b time, color(stc2) msize(large) msymbol(diamond)) ///
-     , xtitle("Placebo Year") xline(-1) yline(0, lcolor(black)) ytitle("Estimated Effects") legend(order(4)) xlabel(1 "2011" 2 "2012" 3 "2013" 4 "2014", nogrid) ///
-	   ylabel(, nogrid) title("Placebo Tests")
+twoway(rspike citop cibottom time, lwidth(vvvthick) mcolor(gray%0) lcolor(gray%25) fcolor(gray%0)) ///
+      (sc b time, color(stc2) msize(large) msymbol(diamond)) ///
+      , xtitle("Placebo Year") xline(-1) yline(0, lcolor(black)) ytitle("Estimated Effects") legend(order(4)) ///
+	  xlabel(1 "2011" 2 "2012" 3 "2013" 4 "2014", nogrid) ylabel(, nogrid) title("Placebo Tests")
 
 ** Event Study
 * Import the processed data
@@ -218,7 +224,7 @@ twoway(histogram inst if treat == 1 & post == 0, color(stc1%70))(histogram inst 
 twoway(histogram roe if treat == 1 & post == 0, color(stc1%70))(histogram roe if treat == 0 & post == 0, color(stc2%70)) ///
       , legend(order(1 "Treatment" 2 "Control")) xlabel(, nogrid) ylabel(, nogrid) title("ROE")
 
-** Difference-in-differneces estimator
+** Difference-in-differences estimator
 reghdfe ratio D inst roe, abs(id year) vce(cl id)
 
 ** Event study plot controlling for confounding events
@@ -269,7 +275,7 @@ gen placebo =  treat*(year >= 2016)
 reghdfe ratio placebo, abs(id year) vce(cl id) nocons
 
 
-** Event study plot using placebo sample
+** Event study plot using the placebo sample
 gen time = 0
 replace time = year - 2009 if year <= 2014
 replace time = year - 2010 if year >= 2016
