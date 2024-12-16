@@ -50,7 +50,7 @@ gen D = treat*post
 gen y = rnormal(3, 2^2) + year
 replace y = y + rnormal(3*(year - 16), 2^2) if treat == 1 & post == 1
 
-*** Plot trends for each group
+*** Plot the trend for each group
 bysort treat year : egen Outcome = mean(y)
 twoway(line Outcome year if treat == 1, color(stc1))(line Outcome year if treat == 0, color(stc2)) ///
       (scatter Outcome year if treat == 1, color(stc1))(scatter Outcome year if treat == 0, color(stc2)) ///
@@ -111,7 +111,7 @@ replace y = y + rnormal(3*(year - 6), 2^2) if group == 1 & year >= 6
 replace y = y + rnormal(3*(year - 12), 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(3*(year - 18), 2^2) if group == 3 & year >= 18
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
@@ -136,7 +136,7 @@ reghdfe y D, abs(id year) vce(cl id)
 ** True Effect is 49.2
 *********************************************************************************************************
 *** Create the data
-*Clear the data
+* Clear the data
 clear
 
 * Set the number of observations to 30000
@@ -177,7 +177,7 @@ replace y = y + rnormal(9*(year - 6), 2^2) if group == 1 & year >= 6
 replace y = y + rnormal(3*(year - 12), 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(1*(year - 18), 2^2) if group == 3 & year >= 18
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
@@ -241,10 +241,10 @@ replace y = y + rnormal(9*(year - 6), 2^2) if group == 1 & year >= 6
 replace y = y + rnormal(3*(year - 12), 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(1*(year - 18), 2^2) if group == 3 & year >= 18
 
-* Drop samples that belong to group 4
+* Drop units that belong to group 4
 drop if group == 4
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(scatter Outcome year if group == 1, color(stc1)) ///
@@ -308,7 +308,7 @@ replace y = y + rnormal(9, 2^2) if group == 1 & year >= 6
 replace y = y + rnormal(3, 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(1, 2^2) if group == 3 & year >= 18
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
@@ -332,7 +332,7 @@ reghdfe y D, abs(id year) vce(cl id)
 ** True Effect is 3
 *********************************************************************************************************
 *** Create the data
-*Clear the data
+* Clear the data
 clear
 
 * Set the number of observations to 30000
@@ -374,7 +374,7 @@ replace y = y + rnormal(3, 2^2) if group == 2 & year >= 12
 replace y = y + rnormal(3, 2^2) if group == 3 & year >= 18
 
 
-*** Plot the trends for each group
+*** Plot the trend for each group
 bysort group year : egen Outcome = mean(y)
 twoway(line Outcome year if group == 1, color(stc1))(line Outcome year if group == 2, color(stc2)) ///
       (line Outcome year if group == 3, color(stc3))(line Outcome year if group == 4, color(stc4)) ///
